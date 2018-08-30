@@ -21,13 +21,9 @@ var game = (function () {
             placePieces();
         },
 
-        getNumberOfPieces = function () {
-            return currentNumberOfPieces;
-        },
 
         placePieces = function () {
             var i;
-
             pieces = [];
 
             for (i = 0; i < currentNumberOfPieces; i++) {
@@ -39,7 +35,7 @@ var game = (function () {
 
         },
 
-        setPiecesToGuess = function(pieces) {
+        setPiecesToGuess = function (pieces) {
             var numberOfPiecesToGuess,
                 numberOfSetPieces,
                 randomPosition;
@@ -56,6 +52,10 @@ var game = (function () {
             }
         },
 
+        getNumberOfPieces = function () {
+            return currentNumberOfPieces;
+        },
+
         getRandomPosition = function (currentPieces) {
             return Math.floor(Math.random() * currentPieces);
         },
@@ -66,12 +66,28 @@ var game = (function () {
 
         getPieces = function () {
             return pieces;
+        },
+
+        getNextLevel = function () {
+            var newNumberOfPieces = currentNumberOfPieces + 1;
+
+            startGame({
+                numberOfPieces: newNumberOfPieces,
+            });
+        },
+
+        restartLevel = function () {
+            startGame({
+                numberOfPieces: currentNumberOfPieces,
+            })
         };
 
 
     return {
         'startGame': startGame,
         'getNumberOfPieces': getNumberOfPieces,
-        'getPieces': getPieces
+        'getPieces': getPieces,
+        'getNextLevel': getNextLevel,
+        'restartLevel': restartLevel
     }
 })();

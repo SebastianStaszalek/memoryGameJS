@@ -26,33 +26,47 @@ var game = (function () {
         },
 
         placePieces = function () {
-            var i,
-                randomPosition;
-                pieces = [];
+            var i;
+
+            pieces = [];
 
             for (i = 0; i < currentNumberOfPieces; i++) {
                 pieces.push({});
                 pieces[i].toGuess = false;
             }
-
-            randomPosition = getRandomPosition(currentNumberOfPieces);
-            if(pieces[randomPosition].toGuess === false) {
-                pieces[randomPosition].toGuess = true;
-            }
-
+            setPiecesToGuess(pieces);
             return pieces;
 
         },
 
-        getRandomPosition = function(number) {
-            return Math.floor(Math.random() * number);
+        setPiecesToGuess = function(pieces) {
+            var numberOfPiecesToGuess,
+                numberOfSetPieces,
+                randomPosition;
+
+            numberOfPiecesToGuess = getNumberOfPiecesToGuess(currentNumberOfPieces);
+            numberOfSetPieces = 0;
+
+            while (numberOfSetPieces < numberOfPiecesToGuess) {
+                randomPosition = getRandomPosition(currentNumberOfPieces);
+                if (pieces[randomPosition].toGuess === false) {
+                    pieces[randomPosition].toGuess = true;
+                    numberOfSetPieces++;
+                }
+            }
+        },
+
+        getRandomPosition = function (currentPieces) {
+            return Math.floor(Math.random() * currentPieces);
+        },
+
+        getNumberOfPiecesToGuess = function (currentPieces) {
+            return Math.floor(currentPieces / 2 - 1);
         },
 
         getPieces = function () {
             return pieces;
         };
-
-
 
 
     return {

@@ -37,7 +37,7 @@ describe('Game', function () {
             };
         game.startGame(config);
 
-        piecesToGuess = findPiecesToGuess(game.initializePieces());
+        piecesToGuess = findPiecesToGuess(game.getPieces());
 
         expect(piecesToGuess.length).toBe(3);
     });

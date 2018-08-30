@@ -10,7 +10,6 @@ var controller = function () {
         },
 
 
-
         getNumberOfPieces = function() {
             return game.getNumberOfPieces();
         },

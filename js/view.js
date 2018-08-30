@@ -48,7 +48,6 @@ var view = (function () {
             }
         };
 
-
     return {
         'renderPieces': renderPieces,
         'getInitialNumberOfPieces': getInitialNumberOfPieces,

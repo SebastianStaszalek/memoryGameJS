@@ -6,6 +6,7 @@ var controller = function () {
             game.startGame({
                 numberOfPieces: initialNumberOfPieces
             });
+
             view.renderPieces(initialNumberOfPieces);
         },
 
@@ -19,13 +20,13 @@ var controller = function () {
         },
 
         nextLevel = function () {
-            game.nextLevel();
-            view.renderPieces(game.getPieces());
+            game.getNextLevel();
+            view.renderPieces();
         },
 
         restartLevel = function () {
             game.restartLevel();
-            view.renderPieces(game.getPieces());
+            view.renderPieces();
         };
 
     return {

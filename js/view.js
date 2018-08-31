@@ -3,15 +3,21 @@
 var view = (function () {
 
     var getInitialNumberOfPieces = function () {
-            return document.getElementById("initialNumberOfPieces").value;
+            return document.getElementById("initNumberOfPieces").value;
+        },
+
+        getDelayTime = function () {
+            return document.getElementById("delayTime").value;
         },
 
         renderPieces = function () {
             var memoryGame = document.getElementById("memorygame"),
                 i,
                 id,
-                piece,
+                content,
                 pieces;
+
+
 
             clearGame();
 
@@ -19,38 +25,67 @@ var view = (function () {
 
             for (i = 0; i < pieces.length; i++) {
                 id = "piece" + i;
-                piece = document.createElement("div");
-                if(pieces[i].toGuess === true) {
-                    piece.setAttribute("class", "highlight");
-                }
+                content = document.createElement("div");
+                // if(pieces[i].toGuess === true) {
+                //     content.setAttribute("class", "highlight");
+                // }
 
-                piece.setAttribute("id", id);
-                memoryGame.appendChild(piece);
+                content.setAttribute("id", id);
+                memoryGame.appendChild(content);
+
             }
+
+            showPieces();
+            highlightPieces(pieces);
+            setTimeout(function () {
+                blackOutPieces(pieces);
+            }, getDelayTime());
         },
 
         clearGame = function () {
-            var piece;
+        var piece;
             while (document.getElementById("memorygame").hasChildNodes()) {
                 piece = document.getElementById("memorygame").firstChild;
                 document.getElementById("memorygame").removeChild(piece);
             }
         },
 
-        highlightPieces = function (pieces) {
+        showPieces = function() {
+            var pieces = document.getElementById("memorygame").children,
+                i;
+            for(i = 0; i < pieces.length; i++) {
+                pieces[i].setAttribute("class", "piece");
+            }
+        },
+
+        blackOutPieces = function(pieces) {
             var i,
-            piece;
+                piece;
             for (i = 0; i < pieces.length; i++) {
                 if (pieces[i].toGuess === true) {
-                    piece = document.getElementById("piece" + i);
+                    piece = document.getElementById("piece"+i);
+                    piece.setAttribute("class", "piece");
+                }
+            }
+        },
+
+        highlightPieces = function (pieces) {
+            var i,
+                piece;
+            for (i = 0; i < pieces.length; i++) {
+                if (pieces[i].toGuess === true) {
+                    piece = document.getElementById("piece"+i);
                     piece.setAttribute("class", "highlight");
                 }
             }
         };
 
+
+
     return {
         'renderPieces': renderPieces,
         'getInitialNumberOfPieces': getInitialNumberOfPieces,
-        'highlightPieces': highlightPieces
+        'highlightPieces': highlightPieces,
+        'getDelayTime': getDelayTime
     }
 })();

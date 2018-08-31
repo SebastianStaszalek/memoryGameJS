@@ -79,6 +79,7 @@ describe('Game', function () {
 
     it('should start next level with proper number of pieces when given config', function () {
         var pieces,
+            piecesToGuess,
             config = {
                 numberOfPieces: 9
             };
@@ -87,13 +88,15 @@ describe('Game', function () {
         game.getNextLevel();
 
         pieces = game.getPieces();
+        piecesToGuess = findPiecesToGuess(pieces);
 
+        expect(piecesToGuess.length).toBe(4);
         expect(pieces.length).toBe(10);
     });
 
     it('when restart level, number of all pieces and pieces to guess should be the same', function () {
         var pieces,
-            //piecesToGuess,
+            piecesToGuess,
             config = {
                 numberOfPieces: 7
             };
@@ -102,9 +105,9 @@ describe('Game', function () {
         game.restartLevel();
 
         pieces = game.getPieces();
-        //piecesToGuess = findPiecesToGuess(pieces);
+        piecesToGuess = findPiecesToGuess(pieces);
 
-        //expect(piecesToGuess).toBe(2);
+        expect(piecesToGuess.length).toBe(2);
         expect(pieces.length).toBe(7);
     });
 

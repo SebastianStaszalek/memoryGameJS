@@ -1,11 +1,37 @@
-.piece{
+.piece {
     width: 100px;
     height: 100px;
-    background-color: darkcyan;
+    background-color: slategray;
     margin-bottom: 10px;
     margin-right: 10px;
     border-radius: 5%;
     display: inline-block;
+}
+
+.disabled {
+    width: 100px;
+    height: 100px;
+    background-color: slategray;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-radius: 5%;
+    display: inline-block;
+    pointer-events: none;
+}
+
+.memorygame{
+    background: cornsilk;
+    border: thin black;
+    border-top: 20px;
+    width: 75vw;
+    height: 85vh;
+    border-radius: 30px;
+    padding: 20px;
+    display:  inline-block;
+    position: relative;
+    margin: 10px;
+    top: 100px;
+    right: 0;
 }
 
 .piece:hover {
@@ -17,7 +43,33 @@
 }
 
 .highlight {
+    width: 100px;
+    height: 100px;
     background-color: blue;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-radius: 5%;
+    display: inline-block;
+}
+
+.hit {
+    width: 100px;
+    height: 100px;
+    background-color: forestgreen;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-radius: 5%;
+    display: inline-block;
+}
+
+.missed {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-radius: 5%;
+    display: inline-block;
 }
 
 h1 {

@@ -11,6 +11,7 @@ var game = (function () {
     var initialNumberOfPieces = 4,
         currentNumberOfPieces,
         pieces = [],
+        shots = [],
 
         startGame = function (config) {
             if (config && config.numberOfPieces) {
@@ -24,11 +25,15 @@ var game = (function () {
 
         placePieces = function () {
             var i;
+
             pieces = [];
+            shots = [];
 
             for (i = 0; i < currentNumberOfPieces; i++) {
                 pieces.push({});
+                shots.push({});
                 pieces[i].toGuess = false;
+                shots[i].guessed = false;
             }
             setPiecesToGuess(pieces);
             return pieces;
@@ -52,6 +57,28 @@ var game = (function () {
             }
         },
 
+        makeAShot = function (id) {
+            var allPiecesGuessed = true,
+                i;
+            if (pieces[id].toGuess === true) {
+                if (shots[id].guessed === false) {
+                    shots[id].guessed = true;
+                    for (i = 0; i < pieces.length; i++) {
+                        if (pieces[i].toGuess === true && shots[i].guessed === false) {
+                            allPiecesGuessed = false;
+                        }
+                    }
+                    if (allPiecesGuessed === true) {
+                        return "NEXT LEVEL";
+                    }
+                    return "OK";
+                }
+            } else {
+                return "GAME OVER";
+            }
+
+        },
+
         getNumberOfPieces = function () {
             return currentNumberOfPieces;
         },
@@ -69,7 +96,7 @@ var game = (function () {
         },
 
         getNextLevel = function () {
-            var newNumberOfPieces = currentNumberOfPieces + 1;
+            var newNumberOfPieces = ++currentNumberOfPieces;
 
             startGame({
                 numberOfPieces: newNumberOfPieces,
@@ -87,6 +114,7 @@ var game = (function () {
         'startGame': startGame,
         'getNumberOfPieces': getNumberOfPieces,
         'getPieces': getPieces,
+        'makeAShot': makeAShot,
         'getNextLevel': getNextLevel,
         'restartLevel': restartLevel
     }

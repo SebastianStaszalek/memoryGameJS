@@ -19,6 +19,18 @@ var controller = function () {
             return game.getPieces();
         },
 
+        makeAShot = function(id) {
+            var gameState;
+
+            gameState = game.makeAShot(id);
+            view.changeColorOfPieces(id, gameState);
+            if(gameState === "NEXT LEVEL") {
+                setTimeout(nextLevel, 4000);
+            } else if (gameState === "GAME OVER") {
+                setTimeout(startGame, 4000);
+            }
+        },
+
         nextLevel = function () {
             game.getNextLevel();
             view.renderPieces();
@@ -33,6 +45,7 @@ var controller = function () {
         'startGame': startGame,
         'getNumberOfPieces': getNumberOfPieces,
         'getPieces': getPieces,
+        'makeAShot': makeAShot,
         'nextLevel': nextLevel,
         'restartLevel': restartLevel
 

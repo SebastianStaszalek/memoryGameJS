@@ -11,7 +11,7 @@ var view = (function () {
         },
 
         renderPieces = function () {
-            var memoryGame = document.getElementById("memorygame"),
+            var memoryGame = document.getElementById("pieces"),
                 i,
                 id,
                 board,
@@ -24,9 +24,6 @@ var view = (function () {
             for (i = 0; i < pieces.length; i++) {
                 id = "p"+i;
                 board = document.createElement("div");
-                // if(pieces[i].toGuess === true) {
-                //     content.setAttribute("class", "highlight");
-                // }
 
                 board.setAttribute("id", id);
                 board.setAttribute("onclick", "controller.makeAShot("+i+")");
@@ -35,23 +32,25 @@ var view = (function () {
             }
 
             showPieces();
+            disableAllElements();
             highlightPieces(pieces);
 
             setTimeout(function () {
                 blackOutPieces(pieces);
+                activateAllElements();
             }, getDelayTime());
         },
 
         clearGame = function () {
         var piece;
-            while (document.getElementById("memorygame").hasChildNodes()) {
-                piece = document.getElementById("memorygame").firstChild;
-                document.getElementById("memorygame").removeChild(piece);
+            while (document.getElementById("pieces").hasChildNodes()) {
+                piece = document.getElementById("pieces").firstChild;
+                document.getElementById("pieces").removeChild(piece);
             }
         },
 
         showPieces = function() {
-            var pieces = document.getElementById("memorygame").children,
+            var pieces = document.getElementById("pieces").children,
                 i;
             for(i = 0; i < pieces.length; i++) {
                 pieces[i].setAttribute("class", "piece");
@@ -78,6 +77,14 @@ var view = (function () {
                     piece.setAttribute("class", "highlight");
                 }
             }
+        },
+
+        disableAllElements = function(){
+            document.getElementById('pieces').classList.add('disabled');
+        },
+
+        activateAllElements = function(){
+            document.getElementById('pieces').classList.remove('disabled');
         },
 
         changeColorOfPieces = function (id, gameState) {

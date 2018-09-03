@@ -47,7 +47,6 @@ var controller = function () {
         'startGame': startGame,
         'getPieces': getPieces,
         'makeAShot': makeAShot,
-        'nextLevel': nextLevel,
         'restartLevel': restartLevel
 
     }

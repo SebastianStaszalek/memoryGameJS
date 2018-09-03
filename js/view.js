@@ -26,11 +26,11 @@ var view = (function () {
             pieces = controller.getPieces();
 
             for (i = 0; i < pieces.length; i++) {
-                id = "p"+i;
+                id = "p" + i;
                 board = document.createElement("div");
 
                 board.setAttribute("id", id);
-                board.setAttribute("onclick", "controller.makeAShot("+i+")");
+                board.setAttribute("onclick", "controller.makeAShot(" + i + ")");
                 memoryGame.appendChild(board);
             }
 
@@ -46,27 +46,27 @@ var view = (function () {
         },
 
         clearGame = function () {
-        var piece;
+            var piece;
             while (document.getElementById("pieces").hasChildNodes()) {
                 piece = document.getElementById("pieces").firstChild;
                 document.getElementById("pieces").removeChild(piece);
             }
         },
 
-        showPieces = function() {
+        showPieces = function () {
             var pieces = document.getElementById("pieces").children,
                 i;
-            for(i = 0; i < pieces.length; i++) {
+            for (i = 0; i < pieces.length; i++) {
                 pieces[i].setAttribute("class", "piece");
             }
         },
 
-        blackOutPieces = function(pieces) {
+        blackOutPieces = function (pieces) {
             var i,
                 piece;
             for (i = 0; i < pieces.length; i++) {
                 if (pieces[i].toGuess === true) {
-                    piece = document.getElementById("p"+i);
+                    piece = document.getElementById("p" + i);
                     piece.setAttribute("class", "piece");
                 }
             }
@@ -77,25 +77,25 @@ var view = (function () {
                 piece;
             for (i = 0; i < pieces.length; i++) {
                 if (pieces[i].toGuess === true) {
-                    piece = document.getElementById("p"+i);
+                    piece = document.getElementById("p" + i);
                     piece.setAttribute("class", "highlight");
                 }
             }
         },
 
-        disableAllElements = function(){
+        disableAllElements = function () {
             document.getElementById('pieces').classList.add('disabled');
             document.getElementById('panel').classList.add('disabled');
         },
 
-        activateAllElements = function(){
+        activateAllElements = function () {
             document.getElementById('pieces').classList.remove('disabled');
             document.getElementById('panel').classList.remove('disabled');
         },
 
         changeColorOfPieces = function (id, gameState) {
             var piece = document.getElementById("p" + id);
-            if(gameState === "HIT") {
+            if (gameState === "HIT") {
                 piece.setAttribute("class", "hit");
             } else if (gameState === "NEXT LEVEL") {
                 piece.setAttribute("class", "hit");

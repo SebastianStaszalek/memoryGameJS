@@ -85,10 +85,6 @@ var game = (function () {
             return pieces;
         },
 
-        getNumberOfPieces = function () {
-            return currentNumberOfPieces;
-        },
-
         calculateNumberOfPiecesToGuess = function (currentPieces) {
             return Math.floor(currentPieces / 2 - 1);
         },
@@ -119,7 +115,6 @@ var game = (function () {
     return {
         'startGame': startGame,
         'getPieces': getPieces,
-        'getNumberOfPieces': getNumberOfPieces,
         'getNumberOfPiecesToGuess': getNumberOfPiecesToGuess,
         'makeAShot': makeAShot,
         'getNextLevel': getNextLevel,

@@ -11,11 +11,6 @@ var controller = function () {
             view.showNumberOfPiecesToGuess(game.getNumberOfPiecesToGuess());
         },
 
-
-        getNumberOfPieces = function() {
-            return game.getNumberOfPieces();
-        },
-
         getPieces = function() {
             return game.getPieces();
         },
@@ -40,7 +35,7 @@ var controller = function () {
         nextLevel = function () {
             game.getNextLevel();
             view.renderPieces();
-            view.getNumberOfPiecesToGuess(game.getNumberOfPiecesToGuess());
+            view.showNumberOfPiecesToGuess(game.getNumberOfPiecesToGuess());
         },
 
         restartLevel = function () {
@@ -51,7 +46,6 @@ var controller = function () {
     return {
         'startGame': startGame,
         'getPieces': getPieces,
-        'getNumberOfPieces': getNumberOfPieces,
         'makeAShot': makeAShot,
         'nextLevel': nextLevel,
         'restartLevel': restartLevel

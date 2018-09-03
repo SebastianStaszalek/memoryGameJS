@@ -8,6 +8,7 @@ var controller = function () {
             });
 
             view.renderPieces(initialNumberOfPieces);
+            view.showNumberOfPiecesToGuess(game.getNumberOfPiecesToGuess());
         },
 
 
@@ -25,15 +26,21 @@ var controller = function () {
             gameState = game.makeAShot(id);
             view.changeColorOfPieces(id, gameState);
             if(gameState === "NEXT LEVEL") {
-                setTimeout(nextLevel, 4000);
+                view.disableAllElements();
+                setTimeout(nextLevel, 3000);
             } else if (gameState === "GAME OVER") {
-                setTimeout(startGame, 4000);
+                view.disableAllElements();
+                setTimeout(startGame, 2000);
+            } else if (gameState === "DOUBLE SHOT") {
+                view.disableAllElements();
+                setTimeout(startGame, 2000);
             }
         },
 
         nextLevel = function () {
             game.getNextLevel();
             view.renderPieces();
+            view.getNumberOfPiecesToGuess(game.getNumberOfPiecesToGuess());
         },
 
         restartLevel = function () {
@@ -43,8 +50,8 @@ var controller = function () {
 
     return {
         'startGame': startGame,
-        'getNumberOfPieces': getNumberOfPieces,
         'getPieces': getPieces,
+        'getNumberOfPieces': getNumberOfPieces,
         'makeAShot': makeAShot,
         'nextLevel': nextLevel,
         'restartLevel': restartLevel

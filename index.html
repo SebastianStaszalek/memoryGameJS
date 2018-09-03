@@ -9,21 +9,20 @@
 <body>
     <h1>Memory Game!</h1>
 
-    <section>
+    <section id="panel">
         <button onclick="controller.startGame()">Start game</button>
         <br>
+        <button onclick="controller.restartLevel()">Highlight</button>
         <br>
-        <button onclick="controller.restartLevel()">Restart level</button>
-        <br>
-        <p> Number of pieces: <input id="initNumberOfPieces" type="number" class="input" value="4" min="4" /></p>
-        <br>
+        <p> Number of pieces: <input id="initialNumberOfPieces" type="number" class="input" value="4" min="4" /></p>
         <br>
         <p> Highlight time: <input id="delayTime" type="number" value="2000" class="input"/></p>
         <br>
+        <p>Number of pieces to guess: <span id="numberOfPiecesToGuess">1</span></p>
     </section>
     <br>
     <br>
-    <div id="pieces" class="memorygame"></div>
+    <div id="pieces" class="board"></div>
 
 
     <script src="js/game.js"></script>

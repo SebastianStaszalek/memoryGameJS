@@ -1,15 +1,10 @@
 'use strict';
 
-// var Piece = function (id) {
-//     this.toGuess = false;
-//     this.id = id;
-// };
-
 var game = (function () {
-
 
     var initialNumberOfPieces = 4,
         currentNumberOfPieces,
+        guessedPieces = 0,
         pieces = [],
         shots = [],
 
@@ -19,6 +14,7 @@ var game = (function () {
             } else {
                 currentNumberOfPieces = initialNumberOfPieces;
             }
+            guessedPieces = 0;
             placePieces();
         },
 
@@ -37,7 +33,6 @@ var game = (function () {
             }
             setPiecesToGuess(pieces);
             return pieces;
-
         },
 
         setPiecesToGuess = function (pieces) {
@@ -45,7 +40,7 @@ var game = (function () {
                 numberOfSetPieces,
                 randomPosition;
 
-            numberOfPiecesToGuess = getNumberOfPiecesToGuess(currentNumberOfPieces);
+            numberOfPiecesToGuess = calculateNumberOfPiecesToGuess(currentNumberOfPieces);
             numberOfSetPieces = 0;
 
             while (numberOfSetPieces < numberOfPiecesToGuess) {
@@ -58,41 +53,52 @@ var game = (function () {
         },
 
         makeAShot = function (id) {
-            var allPiecesGuessed = true,
-                i;
-            if (pieces[id].toGuess === true) {
-                if (shots[id].guessed === false) {
-                    shots[id].guessed = true;
-                    for (i = 0; i < pieces.length; i++) {
-                        if (pieces[i].toGuess === true && shots[i].guessed === false) {
-                            allPiecesGuessed = false;
-                        }
-                    }
-                    if (allPiecesGuessed === true) {
-                        return "NEXT LEVEL";
-                    }
-                    return "OK";
-                }
-            } else {
+            var allPiecesGuessed;
+
+            if (pieces[id].toGuess === false) {
                 return "GAME OVER";
             }
 
+            if (pieces[id].toGuess === true && shots[id].guessed === true) {
+                return "DOUBLE SHOT";
+            }
+
+            if (pieces[id].toGuess === true && shots[id].guessed === false) {
+
+                shots[id].guessed = true;
+                guessedPieces++;
+                allPiecesGuessed = checkIfAllPiecesGuessed();
+
+                if (allPiecesGuessed) {
+                    return "NEXT LEVEL";
+                } else {
+                    return "HIT";
+                }
+            }
+        },
+
+        checkIfAllPiecesGuessed = function () {
+            return guessedPieces === getNumberOfPiecesToGuess();
+        },
+
+        getPieces = function () {
+            return pieces;
         },
 
         getNumberOfPieces = function () {
             return currentNumberOfPieces;
         },
 
-        getRandomPosition = function (currentPieces) {
-            return Math.floor(Math.random() * currentPieces);
-        },
-
-        getNumberOfPiecesToGuess = function (currentPieces) {
+        calculateNumberOfPiecesToGuess = function (currentPieces) {
             return Math.floor(currentPieces / 2 - 1);
         },
 
-        getPieces = function () {
-            return pieces;
+        getNumberOfPiecesToGuess = function () {
+            return calculateNumberOfPiecesToGuess(currentNumberOfPieces);
+        },
+
+        getRandomPosition = function (currentPieces) {
+            return Math.floor(Math.random() * currentPieces);
         },
 
         getNextLevel = function () {
@@ -112,8 +118,9 @@ var game = (function () {
 
     return {
         'startGame': startGame,
-        'getNumberOfPieces': getNumberOfPieces,
         'getPieces': getPieces,
+        'getNumberOfPieces': getNumberOfPieces,
+        'getNumberOfPiecesToGuess': getNumberOfPiecesToGuess,
         'makeAShot': makeAShot,
         'getNextLevel': getNextLevel,
         'restartLevel': restartLevel

@@ -3,12 +3,17 @@
 var view = (function () {
 
     var getInitialNumberOfPieces = function () {
-            return document.getElementById("initNumberOfPieces").value;
+            return document.getElementById("initialNumberOfPieces").value;
         },
 
         getDelayTime = function () {
             return document.getElementById("delayTime").value;
         },
+
+        showNumberOfPiecesToGuess = function (numberOfPieces) {
+            document.getElementById('numberOfPiecesToGuess').textContent = numberOfPieces.toString();
+        },
+
 
         renderPieces = function () {
             var memoryGame = document.getElementById("pieces"),
@@ -18,7 +23,6 @@ var view = (function () {
                 pieces;
 
             clearGame();
-
             pieces = controller.getPieces();
 
             for (i = 0; i < pieces.length; i++) {
@@ -28,7 +32,6 @@ var view = (function () {
                 board.setAttribute("id", id);
                 board.setAttribute("onclick", "controller.makeAShot("+i+")");
                 memoryGame.appendChild(board);
-
             }
 
             showPieces();
@@ -39,6 +42,7 @@ var view = (function () {
                 blackOutPieces(pieces);
                 activateAllElements();
             }, getDelayTime());
+
         },
 
         clearGame = function () {
@@ -81,19 +85,23 @@ var view = (function () {
 
         disableAllElements = function(){
             document.getElementById('pieces').classList.add('disabled');
+            document.getElementById('panel').classList.add('disabled');
         },
 
         activateAllElements = function(){
             document.getElementById('pieces').classList.remove('disabled');
+            document.getElementById('panel').classList.remove('disabled');
         },
 
         changeColorOfPieces = function (id, gameState) {
             var piece = document.getElementById("p" + id);
-            if(gameState === "OK") {
+            if(gameState === "HIT") {
                 piece.setAttribute("class", "hit");
             } else if (gameState === "NEXT LEVEL") {
                 piece.setAttribute("class", "hit");
             } else if (gameState === "MISSED") {
+                piece.setAttribute("class", "missed");
+            } else if (gameState === "DOUBLE SHOT") {
                 piece.setAttribute("class", "missed");
             } else if (gameState === "GAME OVER") {
                 piece.setAttribute("class", "missed");
@@ -104,8 +112,10 @@ var view = (function () {
     return {
         'renderPieces': renderPieces,
         'getInitialNumberOfPieces': getInitialNumberOfPieces,
+        'showNumberOfPiecesToGuess': showNumberOfPiecesToGuess,
         'highlightPieces': highlightPieces,
         'getDelayTime': getDelayTime,
-        'changeColorOfPieces': changeColorOfPieces
+        'changeColorOfPieces': changeColorOfPieces,
+        'disableAllElements': disableAllElements
     }
 })();

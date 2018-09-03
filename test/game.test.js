@@ -111,6 +111,90 @@ describe('Game', function () {
         expect(pieces.length).toBe(7);
     });
 
+    it('should return HIT when shooting right piece', function () {
+        var i,
+            pieces,
+            resultOfShoot,
+            config = {
+                numberOfPieces: 8,
+            };
+
+        game.startGame(config);
+        pieces = game.getPieces();
+
+        for(i=0; i<pieces.length; i++) {
+            if(pieces[i].toGuess === true) {
+                resultOfShoot = game.makeAShot(i);
+                break;
+            }
+        }
+
+        expect(resultOfShoot).toBe("HIT");
+    });
+
+    it('should return DOUBLE SHOT when shooting 2 times the same piece', function () {
+        var i,
+            pieces,
+            resultOfShoot,
+            config = {
+                numberOfPieces: 8,
+            };
+
+        game.startGame(config);
+        pieces = game.getPieces();
+
+        for(i=0; i<pieces.length; i++) {
+            if(pieces[i].toGuess === true) {
+                game.makeAShot(i);
+                resultOfShoot = game.makeAShot(i);
+                break;
+            }
+        }
+
+        expect(resultOfShoot).toBe("DOUBLE SHOT");
+    });
+
+    it('should return GAME OVER when shooting wrong piece', function () {
+        var i,
+            pieces,
+            resultOfShoot,
+            config = {
+                numberOfPieces: 8,
+            };
+
+        game.startGame(config);
+        pieces = game.getPieces();
+
+        for(i=0; i<pieces.length; i++) {
+            if(pieces[i].toGuess === false) {
+                resultOfShoot = game.makeAShot(i);
+                break;
+            }
+        }
+
+        expect(resultOfShoot).toBe("GAME OVER");
+    });
+
+    it('should return NEXT LEVEL when shooting all pieces to guess', function () {
+        var i,
+            pieces,
+            resultOfShoot,
+            config = {
+                numberOfPieces: 8,
+            };
+
+        game.startGame(config);
+        pieces = game.getPieces();
+
+        for(i=0; i<pieces.length; i++) {
+            if(pieces[i].toGuess === true) {
+                resultOfShoot = game.makeAShot(i);
+            }
+        }
+
+        expect(resultOfShoot).toBe("NEXT LEVEL");
+    });
+
 
     function findPiecesToGuess(pieces) {
         return pieces.filter(function (piece) {
